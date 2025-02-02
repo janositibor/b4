@@ -13,7 +13,7 @@ public class NationalPackage implements Transportable{
     @Override
     public int calculateShippingPrice() {
         int result=NORMAL_PRICE;
-        if(isBreakable()){
+        if(breakable){
             result*=2;
         }
         return result;

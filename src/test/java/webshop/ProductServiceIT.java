@@ -11,46 +11,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceIT {
 
-//    Flyway flyway;
-//    ProductRepository productRepository;
-//    ProductService productService;
-//
-//    @BeforeEach
-//    void init() {
-//
-//        MariaDbDataSource dataSource = new MariaDbDataSource();
-//        try {
-//            dataSource.setUrl("jdbc:mariadb://localhost:3306/examTest?useUnicode=true");
-//            dataSource.setUser("webshopRoot");
-//            dataSource.setPassword("training");
-//        } catch (SQLException sqle) {
-//            throw new IllegalStateException("Cannot reach DataBase!", sqle);
-//        }
-//
-//        flyway = Flyway.configure().dataSource(dataSource).load();
-//        flyway.clean();
-//        flyway.migrate();
-//
-//        productRepository = new ProductRepository(dataSource);
-//        productService = new ProductService(productRepository);
-//
-//    }
-//
-//
-//    @Test
-//    void testSaleProduct(){
-//        long generatedId = productRepository.insertProduct("Computer",340_000,20);
-//
-//        productService.saleProduct(generatedId,20);
-//
-//        assertEquals(0,productRepository.findProductById(generatedId).getStock());
-//    }
-//
-//    @Test
-//    void testSaleProductWrongAMount(){
-//        long generatedId = productRepository.insertProduct("Computer",340_000,20);
-//
-//        assertThrows(IllegalArgumentException.class,()->productService.saleProduct(generatedId,21));
-//    }
+    Flyway flyway;
+    ProductRepository productRepository;
+    ProductService productService;
+
+    @BeforeEach
+    void init() {
+
+        MariaDbDataSource dataSource = new MariaDbDataSource();
+        try {
+            dataSource.setUrl("jdbc:mariadb://localhost:3306/examTest?useUnicode=true");
+            dataSource.setUser("webshop_User");
+            dataSource.setPassword("training");
+        } catch (SQLException sqle) {
+            throw new IllegalStateException("Cannot reach DataBase!", sqle);
+        }
+
+        flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.clean();
+        flyway.migrate();
+
+        productRepository = new ProductRepository(dataSource);
+        productService = new ProductService(productRepository);
+
+    }
+
+
+    @Test
+    void testSaleProduct(){
+        long generatedId = productRepository.insertProduct("Computer",340_000,20);
+
+        productService.saleProduct(generatedId,20);
+
+        assertEquals(0,productRepository.findProductById(generatedId).getStock());
+    }
+
+    @Test
+    void testSaleProductWrongAMount(){
+        long generatedId = productRepository.insertProduct("Computer",340_000,20);
+
+        assertThrows(IllegalArgumentException.class,()->productService.saleProduct(generatedId,21));
+    }
 
 }
